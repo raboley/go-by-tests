@@ -22,6 +22,9 @@ func TestGreet(t *testing.T) {
 		t.Errorf("want no error, got %q", err)
 	}
 
+	// Using the buffer we can read out the string that
+	// was written to it for testing purposes.
+	// The buffer is writing this to memory or something.
 	got := buffer.String()
 	want := "Hello, Chris"
 
