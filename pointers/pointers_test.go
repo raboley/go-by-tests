@@ -54,6 +54,8 @@ func assertError(t *testing.T, got error, want error) {
 }
 
 func assertBalance(t *testing.T, wallet Wallet, want Bitcoin) {
+	t.Helper()
+
 	got := wallet.Balance()
 
 	if got != want {
