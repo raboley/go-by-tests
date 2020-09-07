@@ -51,7 +51,7 @@ func TestConfigurableSleeper_Sleep(t *testing.T) {
 
 	spy := &TimeSpy{}
 	sleeper := ConfigurableSleeper{sleepTime, spy.Sleep}
-	sleeper.Sleep(sleepTime)
+	sleeper.Sleep()
 
 	got := spy.durationSlept
 	want := sleepTime
