@@ -3,6 +3,7 @@ package injection
 import (
 	"fmt"
 	"io"
+	"net/http"
 )
 
 func Greet(writer io.Writer, name string) error {
@@ -12,4 +13,8 @@ func Greet(writer io.Writer, name string) error {
 	}
 
 	return nil
+}
+
+func MyGreeterHandler(w http.ResponseWriter, _ *http.Request) {
+	_ = Greet(w, "world")
 }
