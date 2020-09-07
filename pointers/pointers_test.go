@@ -34,12 +34,16 @@ func TestWallet(t *testing.T) {
 }
 
 func assertNoError(t *testing.T, err error) {
+	t.Helper()
+
 	if err != nil {
 		t.Errorf("wanted no error but got: %s", err)
 	}
 }
 
 func assertError(t *testing.T, got error, want error) {
+	t.Helper()
+
 	if got == nil {
 		t.Fatal("wanted an error but didn't get one")
 	}
