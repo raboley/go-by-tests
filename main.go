@@ -10,9 +10,10 @@ import (
 	"time"
 )
 
+var packageToRun string
+
 func main() {
-	var packageToRun string
-	packageToRun = getPackageToRun(packageToRun)
+	packageToRun = getPackageToRun()
 	if packageToRun == "injection" {
 		mainInjection()
 	}
@@ -24,9 +25,11 @@ func main() {
 
 }
 
-func mainMocking() {
-	sleeper := mocking.NewConfigurableSleeper(5*time.Second, time.Sleep)
-	mocking.Countdown(os.Stdout, sleeper)
+func getPackageToRun() (packageName string) {
+	if len(os.Args) > 1 {
+		packageName = "injection"
+	}
+	return packageToRun
 }
 
 func mainInjection() {
@@ -43,9 +46,7 @@ func mainInjection() {
 	}
 }
 
-func getPackageToRun(packageToRun string) string {
-	if len(os.Args) > 1 {
-		packageToRun = "injection"
-	}
-	return packageToRun
+func mainMocking() {
+	sleeper := mocking.NewConfigurableSleeper(5*time.Second, time.Sleep)
+	mocking.Countdown(os.Stdout, sleeper)
 }
