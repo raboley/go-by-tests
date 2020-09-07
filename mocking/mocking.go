@@ -6,6 +6,9 @@ import (
 	"time"
 )
 
+// Countdown will iterate downward from const countdownStart to 0 executing the sleeper's Sleep() method
+// in-between each iteration, and printing a line to the writer. It will finish by performing one last
+// sleep then printing out the const finalWord.
 func Countdown(writer io.Writer, sleeper Sleeper) {
 	for i := countdownStart; i > 0; i-- {
 		sleeper.Sleep()
@@ -28,10 +31,13 @@ type ConfigurableSleeper struct {
 	sleep    func(time.Duration)
 }
 
+// Sleep will perform the private sleep method passing in the duration
+// private field as the only argument.
 func (c *ConfigurableSleeper) Sleep() {
 	c.sleep(c.duration)
 }
 
+// NewConfigurableSleeper initializes a *ConfigurableSleeper setting the private fields duration and sleep.
 func NewConfigurableSleeper(duration time.Duration, sleep func(time.Duration)) *ConfigurableSleeper {
 	return &ConfigurableSleeper{duration: duration, sleep: sleep}
 }
