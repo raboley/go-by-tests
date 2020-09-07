@@ -28,3 +28,6 @@ func (s *DefaultSleeper) Sleep() {
 
 const finalWord = "Go!"
 const countdownStart = 3
+
+const sleep = "sleep"
+const write = "write"
