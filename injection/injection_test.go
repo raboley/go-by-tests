@@ -2,8 +2,19 @@ package injection
 
 import (
 	"bytes"
+	"log"
+	"os"
 	"testing"
 )
+
+func ExampleGreet() {
+	name := "Russell"
+	writer := os.Stdout
+	if err := Greet(writer, name); err != nil {
+		log.Fatalf("error thrown greeting: %s with writer: %#v", name, writer)
+	}
+	// Output: Hello, Russell
+}
 
 func TestGreet(t *testing.T) {
 	buffer := bytes.Buffer{}
