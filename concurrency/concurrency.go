@@ -1,18 +1,25 @@
 package concurrency
 
-import "time"
-
 type WebsiteChecker func(string) bool
+type CheckedWebsites struct {
+	url       string
+	reachable bool
+}
 
 func CheckWebsites(wc WebsiteChecker, urls []string) map[string]bool {
-	results := make(map[string]bool)
+	allCheckedWebsites := make(map[string]bool)
+	checkedWebsitesChannel := make(chan CheckedWebsites)
 
 	for _, url := range urls {
 		go func(u string) {
-			results[u] = wc(u)
+			checkedWebsitesChannel <- CheckedWebsites{u, wc(u)}
 		}(url)
 	}
-	time.Sleep(2 * time.Second)
 
-	return results
+	for i := 0; i < len(urls); i++ {
+		checkedWebsite := <-checkedWebsitesChannel
+		allCheckedWebsites[checkedWebsite.url] = checkedWebsite.reachable
+	}
+
+	return allCheckedWebsites
 }
